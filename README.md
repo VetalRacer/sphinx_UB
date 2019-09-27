@@ -1,1 +1,1 @@
-# sphinx_UB
+# This script helping for update database sphinx
