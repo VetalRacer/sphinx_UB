@@ -3,7 +3,7 @@
 service=searchd
 status=($(systemctl status searchd | grep Active | awk '{print $2}'))
 dir=/var/lib/sphinx/
-dir_log=null
+dir_log=/var/log/sphinx/
 
 check_service () {
 
@@ -42,12 +42,12 @@ fi
 
 clear_log () {
 
-read -p ":: Clear log in $dir? (y/N) " answer
+read -p ":: Clear log in $dir_log? (y/N) " answer
 if [[ $answer =~ ^([^Yy]) ]] || [[ -z $answer ]]
         then
                 echo -e "* \e[1;31mCanceled\e[0m"
         else
-                rm -f $dir* && echo -e "* \e[1;32mSuccesful\e[0m"
+                rm -f $dir_log* && echo -e "* \e[1;32mSuccesful\e[0m"
 fi
 }
 
@@ -94,7 +94,7 @@ read -p ":: Update system? (y/N) " answer
                         echo -e "* \e[1;31mCancel update system\e[0m"
 
                 else
-                        pacman -Syu && echo -e "* \e[1;32mUpdate succesful\e[0m"
+                        yum update && echo -e "* \e[1;32mUpdate succesful\e[0m"
         fi
 }
 
