@@ -59,9 +59,15 @@ then
 	if [[ $answer =~ ^([^Yy]) ]] || [[ -z $answer ]]
 		then
 			echo -e "* \e[1;31mCanceled\e[0m" && start_service && exit 1
-
 		else
-			7z x -o$dir $file && echo -e "* \e[1;32mSuccesful\e[0m"
+			7z x -o$dir ~/$file && echo -e "* \e[1;32mSuccesful\e[0m"
+	fi
+	read -p ":: Delete $file? (y/N) " answer
+	if [[ $answer =~ ^([^Yy]) ]] || [[ -z $answer ]]
+		then
+			echo -e "* \e[1;31mFile not deleted\e[0m"
+		else
+			rm ~/$file && echo -e "* \e[1;32mFile deleted\e[0m"
 	fi
 else
 	echo -e "* File \e[4msphinx_data.7z\e[0m \e[1;31mNOT FOUND\e[0m in HOME dir"
